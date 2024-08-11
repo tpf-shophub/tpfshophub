@@ -244,13 +244,15 @@ passport.use(
               } else {
                 jRole = 'field';
               }  
-    
+
+              const zohoAddress = userDetails.Current_Address1 + ", " + userDetails.Current_Addess2
+
               user = new User({ email: emailFromZoho, password: hashedPassword, salt, verified: true,  
                 addresses : [{
                   name: userDetails.Official_Name,
                   email: userDetails.EmailID,
                   phone: userDetails.Mobile,
-                  street: userDetails.Current_Address1,
+                  street: zohoAddress,
                   city: userDetails.Work_location,
                   state: userDetails.Work_location,
                   pinCode: userDetails.Current_Pincode
