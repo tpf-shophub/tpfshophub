@@ -162,13 +162,6 @@ exports.invoiceTemplate = function(order, isAddressDifferent){
 
 </head>
 <body style="background-color: #D2C7BA;">
-
-  <!-- start preheader -->
-  <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-    A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
-  </div>
-  <!-- end preheader -->
-
   <!-- start body -->
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
 
@@ -474,13 +467,6 @@ exports.adminInvoiceTemplate = function(order, userEmail, isAddressDifferent){
  
  </head>
  <body style="background-color: #D2C7BA;">
- 
-   <!-- start preheader -->
-   <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-     A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
-   </div>
-   <!-- end preheader -->
- 
    <!-- start body -->
    <table border="0" cellpadding="0" cellspacing="0" width="100%">
  
@@ -788,13 +774,6 @@ exports.adminInvoiceTemplate = function(order, userEmail, isAddressDifferent){
  
  </head>
  <body style="background-color: #D2C7BA;">
- 
-   <!-- start preheader -->
-   <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-     A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
-   </div>
-   <!-- end preheader -->
- 
    <!-- start body -->
    <table border="0" cellpadding="0" cellspacing="0" width="100%">
  
