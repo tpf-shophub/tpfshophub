@@ -89,11 +89,25 @@ opts.secretOrKey = process.env.JWT_SECRET_KEY;
 //middlewares
 server.use(express.static(path.resolve(__dirname, 'build')));
 server.use(cookieParser());
+// server.use(
+//   session({
+//     secret: process.env.SESSION_KEY,
+//     resave: false, // don't save session if unmodified
+//     saveUninitialized: false, // don't create session until something stored
+//   })
+// );
 server.use(
   session({
     secret: process.env.SESSION_KEY,
-    resave: false, // don't save session if unmodified
-    saveUninitialized: false, // don't create session until something stored
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URL,  // Your MongoDB connection string
+      collectionName: 'sessions',        // Name of the collection to store sessions
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,  // Session expires in 1 day
+    },
   })
 );
 server.use(passport.authenticate('session'));
@@ -357,21 +371,6 @@ main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(process.env.MONGODB_URL);
 }
-
-// server.use(
-//   session({
-//     secret: process.env.SESSION_KEY,
-//     resave: false,
-//     saveUninitialized: false,
-//     store: MongoStore.create({
-//       mongoUrl: process.env.MONGODB_URL,  // Your MongoDB connection string
-//       collectionName: 'sessions',        // Name of the collection to store sessions
-//     }),
-//     cookie: {
-//       maxAge: 1000 * 60 * 60 * 24,  // Session expires in 1 day
-//     },
-//   })
-// );
 
 server.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
