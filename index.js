@@ -12,6 +12,7 @@ const jwt = require('jsonwebtoken');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const path = require('path')
+const MongoStore = require('connect-mongo');
 
 const { createProduct } = require('./controller/Product');
 const productsRouter = require('./routes/Products');
@@ -356,6 +357,21 @@ main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(process.env.MONGODB_URL);
 }
+
+server.use(
+  session({
+    secret: process.env.SESSION_KEY,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URL,  // Your MongoDB connection string
+      collectionName: 'sessions',        // Name of the collection to store sessions
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,  // Session expires in 1 day
+    },
+  })
+);
 
 server.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
