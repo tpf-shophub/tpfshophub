@@ -48,11 +48,11 @@ exports.createUser = async (email, tempPass) => {
 async function generateAccessToken() {
   const tokenResponse = await axios.post('https://accounts.zoho.in/oauth/v2/token?', null, {
     params: {
-      grant_type: 'refresh_token',
-      client_id: '1000.623LGEAT6EH7D7MKYFT20I6FRHCFIJ',
-      client_secret: '1e6e59073d1c11fbc8ae7c757626932f02f6b2e41c',
-      redirect_uri: 'https://www.employeeform.in/callback',
-      refresh_token: '1000.bc9ce8fad3c4799e7ef89ff6200527a1.8311e0aed6efd7bc90c057b89c5b9cdf'
+      grant_type: process.env.grant_type,
+      client_id: process.env.client_id,
+      client_secret: process.env.client_id,
+      redirect_uri: process.env.redirect_uri,
+      refresh_token: process.env.refresh_token
     },
     headers: {
       'Cookie': 'JSESSIONID=74ACBC7D19F9F610DC1BA4271951A273; _zcsr_tmp=7ace336c-aad9-474c-814c-7b1d026f5eb6; iamcsr=7ace336c-aad9-474c-814c-7b1d026f5eb6; zalb_6e73717622=4440853cd702ab2a51402c119608ee85'
