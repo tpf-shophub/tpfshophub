@@ -106,13 +106,19 @@ exports.loginUser = async (req, res) => {
   if(loginFromDB) {
     let user = await User.findOne({ email: userEmail });
     const token = jwt.sign(sanitizeUser(user), process.env.JWT_SECRET_KEY);
-    res
-      .cookie('jwt', token, {
-        expires: new Date(Date.now() + 3600000),
-        httpOnly: true,
-      })
-      .status(201)
-      .json({ email: userEmail, role: user.role, verified: true });
+    const generatedOtp = params.message
+    if(req.body.password === generatedOtp) {
+      res
+        .cookie('jwt', token, {
+          expires: new Date(Date.now() + 3600000),
+          httpOnly: true,
+        })
+        .status(201)
+        .json({ email: userEmail, role: user.role, verified: true });
+    } else {
+        console.log("This is login error status")
+        res.sendStatus(401);
+    }
     return;
   } else {
       // ---Zoho connection
